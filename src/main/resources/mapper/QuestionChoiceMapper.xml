@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zk.edu.mapper.QuestionChoiceMapper">
+  <resultMap id="BaseResultMap" type="com.zk.edu.model.QuestionChoice">
+    <id column="choice_id" jdbcType="INTEGER" property="choiceId" />
+    <result column="version_id" jdbcType="INTEGER" property="versionId" />
+    <result column="choice_key" jdbcType="VARCHAR" property="choiceKey" />
+    <result column="is_right" jdbcType="BIT" property="isRight" />
+    <result column="score_rate" jdbcType="DOUBLE" property="scoreRate" />
+    <result column="show_order" jdbcType="INTEGER" property="showOrder" />
+    <result column="choice_value" jdbcType="LONGVARCHAR" property="choiceValue" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    choice_id, version_id, choice_key, is_right, score_rate, show_order
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from question_choice
+    where choice_id = #{choiceId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from question_choice
+    where choice_id = #{choiceId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.zk.edu.model.QuestionChoice">
+    insert into question_choice (choice_id, version_id, choice_key, 
+      is_right, score_rate, show_order, 
+      choice_value)
+    values (#{choiceId,jdbcType=INTEGER}, #{versionId,jdbcType=INTEGER}, #{choiceKey,jdbcType=VARCHAR}, 
+      #{isRight,jdbcType=BIT}, #{scoreRate,jdbcType=DOUBLE}, #{showOrder,jdbcType=INTEGER}, 
+      #{choiceValue,jdbcType=LONGVARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.zk.edu.model.QuestionChoice">
+    update question_choice
+    set version_id = #{versionId,jdbcType=INTEGER},
+      choice_key = #{choiceKey,jdbcType=VARCHAR},
+      is_right = #{isRight,jdbcType=BIT},
+      score_rate = #{scoreRate,jdbcType=DOUBLE},
+      show_order = #{showOrder,jdbcType=INTEGER}
+    where choice_id = #{choiceId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zk.edu.mapper.QuestionDetailMapper">
+  <resultMap id="BaseResultMap" type="com.zk.edu.model.QuestionDetail">
+    <id column="detail_id" jdbcType="INTEGER" property="detailId" />
+    <result column="version_id" jdbcType="INTEGER" property="versionId" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="analysis" jdbcType="LONGVARCHAR" property="analysis" />
+    <result column="answer" jdbcType="LONGVARCHAR" property="answer" />
+    <result column="file_ids" jdbcType="VARCHAR" property="fileIds" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    detail_id, version_id, content, analysis, answer, file_ids
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from question_detail
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from question_detail
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.zk.edu.model.QuestionDetail">
+    insert into question_detail (detail_id, version_id, file_ids, 
+      content, analysis, answer
+      )
+    values (#{detailId,jdbcType=INTEGER}, #{versionId,jdbcType=INTEGER}, #{fileIds,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR}, #{analysis,jdbcType=LONGVARCHAR}, #{answer,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.zk.edu.model.QuestionDetail">
+    update question_detail
+    set version_id = #{versionId,jdbcType=INTEGER},
+      file_ids = #{fileIds,jdbcType=VARCHAR}
+    where detail_id = #{detailId,jdbcType=INTEGER}
+  </update>
+</mapper>

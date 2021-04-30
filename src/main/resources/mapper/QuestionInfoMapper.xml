@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zk.edu.mapper.QuestionInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zk.edu.model.QuestionInfo">
+    <id column="version_id" jdbcType="INTEGER" property="versionId" />
+    <result column="question_id" jdbcType="INTEGER" property="questionId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="difficulty" jdbcType="INTEGER" property="difficulty" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_new" jdbcType="BIT" property="isNew" />
+    <result column="selected_count" jdbcType="INTEGER" property="selectedCount" />
+    <result column="is_published" jdbcType="BIT" property="isPublished" />
+    <result column="right_count" jdbcType="INTEGER" property="rightCount" />
+    <result column="answer_count" jdbcType="INTEGER" property="answerCount" />
+    <result column="accuracy" jdbcType="DOUBLE" property="accuracy" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    version_id, question_id, type, difficulty, status, is_new, selected_count, is_published, 
+    right_count, answer_count, accuracy, create_user, create_time, update_user, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from question_info
+    where version_id = #{versionId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from question_info
+    where version_id = #{versionId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.zk.edu.model.QuestionInfo">
+    insert into question_info (version_id, question_id, type, 
+      difficulty, status, is_new, 
+      selected_count, is_published, right_count, 
+      answer_count, accuracy, create_user, 
+      create_time, update_user, update_time
+      )
+    values (#{versionId,jdbcType=INTEGER}, #{questionId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{difficulty,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{isNew,jdbcType=BIT}, 
+      #{selectedCount,jdbcType=INTEGER}, #{isPublished,jdbcType=BIT}, #{rightCount,jdbcType=INTEGER}, 
+      #{answerCount,jdbcType=INTEGER}, #{accuracy,jdbcType=DOUBLE}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.zk.edu.model.QuestionInfo">
+    update question_info
+    set question_id = #{questionId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      difficulty = #{difficulty,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      is_new = #{isNew,jdbcType=BIT},
+      selected_count = #{selectedCount,jdbcType=INTEGER},
+      is_published = #{isPublished,jdbcType=BIT},
+      right_count = #{rightCount,jdbcType=INTEGER},
+      answer_count = #{answerCount,jdbcType=INTEGER},
+      accuracy = #{accuracy,jdbcType=DOUBLE},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where version_id = #{versionId,jdbcType=INTEGER}
+  </update>
+
+</mapper>
